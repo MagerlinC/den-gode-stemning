@@ -1,0 +1,286 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import quartet from '../assets/quartet.jpg';
+
+const youtubeId = 'MibrTts31Bk';
+const email = 'mikkel+dengodestemning@hotmail.com';
+const phone = '+45 29 93 11 57';
+---
+
+<Layout
+	title="Den Gode Stemning · Barbershopkvartet"
+	description="Den Gode Stemning er en dansk barbershopkvartet – fire stemmer, én god stemning."
+>
+	<header class="hero">
+		<Image
+			src={quartet}
+			alt="De fire medlemmer af Den Gode Stemning synger i bordeauxrøde jakkesæt på en scene med violet lys"
+			widths={[800, 1200, 2047]}
+			sizes="100vw"
+			loading="eager"
+			fetchpriority="high"
+			class="hero-img"
+		/>
+		<div class="hero-text">
+			<p class="eyebrow">Barbershopkvartet</p>
+			<h1>Den Gode Stemning</h1>
+			<p class="tagline">Fire stemmer. Én god stemning.</p>
+			<a class="cta" href="#contact">Book os til dit arrangement</a>
+		</div>
+	</header>
+
+	<main>
+		<section class="about">
+			<p>
+        Vi er fire sangere, der elsker både klassisk og moderne barbershop: a capella sang, tætte harmonier,
+				ringende akkorder og masser af glæde på scenen. Vi synger til koncerter, fester,
+				firmaarrangementer - og alle andre steder, hvor der er brug for lidt ekstra god stemning.
+			</p>
+		</section>
+
+		<section class="video" aria-labelledby="video-heading">
+			<h2 id="video-heading">Hør os synge</h2>
+			<div class="video-frame">
+				<iframe
+					src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+					title="Den Gode Stemning synger"
+					loading="lazy"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen></iframe>
+			</div>
+		</section>
+
+		<section id="contact" class="contact" aria-labelledby="contact-heading">
+			<h2 id="contact-heading">Book os</h2>
+			<p>Skal vi synge til dit arrangement? Skriv eller ring – vi glæder os til at høre fra dig.</p>
+			<ul>
+				<li><a href={`mailto:${email}`}>{email}</a></li>
+				<li><a href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a></li>
+			</ul>
+		</section>
+	</main>
+
+	<footer>
+		<p class="footer-name">Den Gode Stemning</p>
+    <p class="credit">Foto: © Eric Ideler, SNOBS 2025</p>
+	</footer>
+</Layout>
+
+<style>
+	.hero {
+		position: relative;
+		background: var(--burgundy-ink);
+	}
+
+	.hero-img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.hero-text {
+		padding: 1.5rem 1rem 2.5rem;
+		text-align: center;
+	}
+
+	.eyebrow {
+		margin: 0;
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: var(--violet-soft);
+	}
+
+	h1 {
+		margin: 0.25rem 0 0;
+		font-family: var(--serif);
+		font-weight: 700;
+		font-size: clamp(2.5rem, 8vw, 5.5rem);
+		line-height: 1.05;
+		text-wrap: balance;
+	}
+
+	.tagline {
+		margin: 0.75rem 0 0;
+		font-family: var(--serif);
+		font-style: italic;
+		font-weight: 500;
+		font-size: clamp(1.15rem, 2.5vw, 1.6rem);
+		color: var(--cream-muted);
+	}
+
+	.cta {
+		display: inline-block;
+		margin-top: 1.5rem;
+		padding: 0.8rem 1.75rem;
+		border-radius: 999px;
+		background: var(--violet);
+		color: #fff;
+		font-weight: 600;
+		text-decoration: none;
+		text-shadow: none;
+		box-shadow: 0 10px 30px -8px rgb(106 76 240 / 0.7);
+		transition:
+			background-color 0.2s,
+			transform 0.2s;
+	}
+
+	.cta:hover,
+	.cta:focus-visible {
+		background: #7d62ff;
+		transform: translateY(-2px);
+	}
+
+	/* On wider screens, fill the viewport and lay the title over the photo */
+	@media (min-width: 760px) {
+		.hero {
+			height: min(92vh, 56vw);
+			min-height: 480px;
+			overflow: hidden;
+		}
+
+		.hero-img {
+			height: 100%;
+			object-fit: cover;
+			object-position: center 20%;
+		}
+
+		.hero::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				to bottom,
+				transparent 38%,
+				rgb(38 9 12 / 0.8) 70%,
+				var(--burgundy-ink) 100%
+			);
+		}
+
+		.hero-text {
+			position: absolute;
+			inset: auto 0 0;
+			z-index: 1;
+			padding: 0 2rem 3rem;
+			text-shadow: 0 2px 16px rgb(0 0 0 / 0.45);
+		}
+	}
+
+	main {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: 1rem 1rem 4rem;
+	}
+
+	.about {
+		max-width: 38rem;
+		margin: 0 auto 4rem;
+		text-align: center;
+		color: var(--cream-muted);
+	}
+
+	.about p {
+		margin: 0;
+	}
+
+	.video h2 {
+		margin: 0 0 1.5rem;
+		text-align: center;
+		font-family: var(--serif);
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+	}
+
+	.video-frame {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		border-radius: 12px;
+		overflow: hidden;
+		background: var(--burgundy-deep);
+		box-shadow:
+			0 0 0 1px rgb(185 168 255 / 0.25),
+			0 24px 60px -12px rgb(106 76 240 / 0.45);
+	}
+
+	.video-frame iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+
+	.contact {
+		margin-top: 5rem;
+		text-align: center;
+	}
+
+	.contact h2 {
+		margin: 0 0 0.75rem;
+		font-family: var(--serif);
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+	}
+
+	.contact p {
+		margin: 0 auto 1.75rem;
+		max-width: 34rem;
+		color: var(--cream-muted);
+	}
+
+	.contact ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.contact a {
+		display: inline-block;
+		max-width: 100%;
+		padding: 0.7rem 1.4rem;
+		border: 1px solid rgb(185 168 255 / 0.45);
+		border-radius: 999px;
+		color: var(--cream);
+		font-weight: 600;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+		transition:
+			background-color 0.2s,
+			border-color 0.2s;
+	}
+
+	.contact a:hover,
+	.contact a:focus-visible {
+		background: var(--burgundy);
+		border-color: var(--violet-soft);
+	}
+
+	footer {
+		padding: 2.5rem 1rem;
+		text-align: center;
+		background: var(--burgundy-deep);
+		border-top: 3px solid var(--burgundy);
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	.footer-name {
+		font-family: var(--serif);
+		font-style: italic;
+		font-size: 1.25rem;
+	}
+
+	.credit {
+		margin-top: 0.5rem !important;
+		font-size: 0.85rem;
+		color: var(--cream-muted);
+		opacity: 0.7;
+	}
+</style>
